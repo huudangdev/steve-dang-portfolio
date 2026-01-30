@@ -27,8 +27,6 @@
         [x-cloak] { display: none !important; }
         .terminal-scroll { height: 400px; scrollbar-width: none; }
         .terminal-scroll::-webkit-scrollbar { display: none; }
-        
-        /* Role Highlight Logic */
         .dim { opacity: 0.3; filter: grayscale(1); pointer-events: none; }
         .focus-role { border: 3px solid var(--accent) !important; scale: 1.05; z-index: 10; background: #fff !important; }
     </style>
@@ -41,19 +39,19 @@
         showToast: false, 
         toastMsg: '',
         terminalLines: [
-            { type: 'sys', text: '>>> STEVE_OS v8.0.0 LOADED' },
-            { type: 'out', text: 'Ready to showcase product impact. Use buttons or type commands.' }
+            { type: 'sys', text: '>>> STEVE_CORE_ID v9.0.0 BOOT_SUCCESS' },
+            { type: 'out', text: 'Welcome. I am a Product Architect focused on Enterprise Transformation & Web3.' }
         ],
         commandInput: '',
         processCommand(input) {
             let cmd = (input || this.commandInput).toLowerCase().trim();
             if(!cmd) return;
             this.terminalLines.push({ type: 'cmd', text: cmd });
-            if(cmd === 'hire') {
-                this.terminalLines.push({ type: 'out', text: 'Opening secure line to Steve...' });
+            if(cmd === 'story') {
+                this.terminalLines.push({ type: 'out', text: 'From SaaS growth at Simplamo to DeFi scaling at Pandora and ERP architecture at Viet An.' });
+            } else if(cmd === 'hire') {
+                this.terminalLines.push({ type: 'out', text: 'Connecting secure line...' });
                 setTimeout(() => { window.location.href = 'mailto:dang.nguyentranhuu@gmail.com'; }, 800);
-            } else if(cmd === 'pitch') {
-                this.terminalLines.push({ type: 'out', text: '>>> PITCH: I am a Product Architect who codes. I bridge the $ gap with scalable tech.' });
             } else if(cmd === 'clear') { this.terminalLines = []; }
             this.commandInput = '';
             this.$nextTick(() => { this.$refs.termBody.scrollTop = this.$refs.termBody.scrollHeight; });
@@ -63,10 +61,6 @@
     <div id="cursor-dot"></div>
     <div id="cursor-outline"></div>
 
-    <div x-show="showToast" x-transition class="fixed bottom-8 right-8 z-[100] bg-gray-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center space-x-3 border border-emerald-500/50" style="display: none;">
-        <span x-text="toastMsg" class="font-bold text-sm"></span>
-    </div>
-
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -75,11 +69,11 @@
                 <span class="font-extrabold text-xl tracking-tighter uppercase">STEVE<span class="text-emerald-500">DANG</span></span>
             </div>
             
-            <div class="hidden lg:flex items-center space-x-10 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
-                <a href="#experience" class="hover:text-emerald-600 transition">Experience</a>
+            <div class="hidden lg:flex items-center space-x-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
                 <a href="#featured-products" class="hover:text-emerald-600 transition">Products</a>
+                <a href="#experience" class="hover:text-emerald-600 transition">Career</a>
+                <a href="#projects" class="hover:text-emerald-600 transition">Vault</a>
                 
-                <!-- ADVANCED HR TOOLS -->
                 <div class="flex items-center space-x-2 bg-slate-100 p-1 rounded-full border border-slate-200">
                     <button @click="selectedRole = 'pm'" :class="selectedRole === 'pm' ? 'bg-emerald-500 text-white' : 'text-slate-500 hover:bg-slate-200'" class="px-3 py-1.5 rounded-full text-[9px] font-bold transition-all uppercase">Role: PM</button>
                     <button @click="selectedRole = 'tech'" :class="selectedRole === 'tech' ? 'bg-blue-500 text-white' : 'text-slate-500 hover:bg-slate-200'" class="px-3 py-1.5 rounded-full text-[9px] font-bold transition-all uppercase">Role: Tech</button>
@@ -101,11 +95,13 @@
                 <svg x-show="mobileMenu" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
-        <div x-show="mobileMenu" x-cloak class="lg:hidden bg-white border-b border-gray-100 py-8 px-6 space-y-6">
-            <a @click="mobileMenu = false" href="#experience" class="block text-xl font-bold text-slate-900">Experience</a>
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-cloak class="lg:hidden bg-white border-b border-gray-100 py-8 px-6 space-y-6 shadow-2xl">
             <a @click="mobileMenu = false" href="#featured-products" class="block text-xl font-bold text-slate-900">Products</a>
+            <a @click="mobileMenu = false" href="#experience" class="block text-xl font-bold text-slate-900">Experience</a>
+            <a @click="mobileMenu = false" href="#projects" class="block text-xl font-bold text-slate-900">The Vault</a>
             <div class="pt-4 border-t border-gray-50 flex space-x-4">
-                <button @click="recruiterMode = !recruiterMode; mobileMenu = false" class="text-xs font-bold text-emerald-600 uppercase">Recruiter Insights</button>
+                <button @click="recruiterMode = !recruiterMode; mobileMenu = false" class="text-xs font-black text-emerald-600 uppercase">RECRUITER MODE</button>
             </div>
         </div>
     </nav>
@@ -116,20 +112,19 @@
             <div class="lg:col-span-7 space-y-8">
                 <div class="inline-flex items-center space-x-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase border border-emerald-100">
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Next Avail: February 2026</span>
+                    <span>Scaling Digital Ecosystems</span>
                 </div>
                 <h1 class="text-6xl md:text-8xl font-[900] text-slate-900 leading-[0.9] tracking-tighter">
-                    Lead. Build. <br/><span class="text-gradient">Scale.</span>
+                    Venture <br/><span class="text-gradient">Architect.</span>
                 </h1>
                 <p class="text-xl md:text-2xl text-slate-500 leading-relaxed max-w-2xl font-medium">
-                    Helping enterprises scale through <span :class="recruiterMode ? 'highlight-text' : ''">Odoo ERP ecosystems</span>, <span :class="recruiterMode ? 'highlight-text' : ''">DeFi strategy</span>, and high-performance automation.
+                    Leading <span :class="recruiterMode ? 'highlight-text' : ''">High-Scale Web3 Venture Building</span> and <span :class="recruiterMode ? 'highlight-text' : ''">Enterprise Digital Transformation</span>.
                 </p>
                 <div class="pt-4 flex items-center space-x-6">
-                    <a href="Steve_Dang_CV.pdf" target="_blank" class="bg-gray-900 text-white px-10 py-5 rounded-3xl font-black text-lg shadow-2xl hover:bg-emerald-600 transition-all flex items-center space-x-4">
-                        <span>Official CV</span>
+                    <a href="Steve_Dang_CV.pdf" target="_blank" class="bg-gray-900 text-white px-10 py-5 rounded-3xl font-black text-lg shadow-2xl hover:bg-emerald-600 transition-all flex items-center space-x-4 inline-flex">
+                        <span>Get Full Resume</span>
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
-                    <button @click="showToast=true; toastMsg='Calendar coming soon! Email instead?'; setTimeout(()=>showToast=false, 3000)" class="text-slate-400 font-bold uppercase text-xs tracking-widest underline decoration-emerald-500/30 underline-offset-8 hover:text-emerald-600 transition-all">Book Interview</button>
                 </div>
             </div>
             
@@ -145,121 +140,222 @@
                         </template>
                         <div class="flex items-center space-x-2">
                             <span class="text-emerald-500 font-bold">></span>
-                            <input type="text" x-model="commandInput" @keydown.enter="processCommand()" class="bg-transparent border-none outline-none text-emerald-400 w-full focus:ring-0 p-0" placeholder="Type pitch, hire, clear...">
+                            <input type="text" x-model="commandInput" @keydown.enter="processCommand()" class="bg-transparent border-none outline-none text-emerald-400 w-full focus:ring-0 p-0" placeholder="Ask about story, metrics, hire...">
                         </div>
                     </div>
-                    <div class="mt-8 pt-6 border-t border-white/5 grid grid-cols-2 gap-2">
-                        <button @click="processCommand('pitch')" class="bg-emerald-500/10 text-emerald-500 p-3 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-500 hover:text-white transition">The 30s Pitch</button>
-                        <button @click="processCommand('hire')" class="bg-white/10 text-white p-3 rounded-xl text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Fast Track</button>
+                    <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-2">
+                        <button @click="processCommand('story')" class="bg-emerald-500/10 text-emerald-500 px-4 py-2 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-500 transition">STORY</button>
+                        <button @click="processCommand('hire')" class="bg-white/10 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase hover:bg-white transition">HIRE_ME</button>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- FEATURED PRODUCTS -->
+    <!-- IMPACT METRICS -->
+    <section class="py-24 px-6 relative reveal active">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-slate-900 rounded-[4rem] p-12 md:p-20 text-white grid grid-cols-1 md:grid-cols-4 gap-12 relative overflow-hidden">
+                <div class="md:col-span-1 border-l border-emerald-500/30 pl-8">
+                    <h3 class="text-5xl font-black text-emerald-500 mb-2 tracking-tighter">32%</h3>
+                    <p class="text-slate-400 font-bold uppercase text-[9px] tracking-widest tracking-[0.2em]">Efficiency Boost</p>
+                </div>
+                <div class="md:col-span-1 border-l border-blue-500/30 pl-8">
+                    <h3 class="text-5xl font-black text-blue-500 mb-2 tracking-tighter">1M+</h3>
+                    <p class="text-slate-400 font-bold uppercase text-[9px] tracking-widest tracking-[0.2em]">Global Scale</p>
+                </div>
+                <div class="md:col-span-1 border-l border-purple-500/30 pl-8">
+                    <h3 class="text-5xl font-black text-purple-500 mb-2 tracking-tighter">4.5x</h3>
+                    <p class="text-slate-400 font-bold uppercase text-[9px] tracking-widest tracking-[0.2em]">Growth Multiplier</p>
+                </div>
+                <div class="md:col-span-1 border-l border-pink-500/30 pl-8">
+                    <h3 class="text-5xl font-black text-pink-500 mb-2 tracking-tighter">$40M</h3>
+                    <p class="text-slate-400 font-bold uppercase text-[9px] tracking-widest tracking-[0.2em]">AUM Managed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS SHOWCASE -->
     <section id="featured-products" class="py-32 px-6 bg-white rounded-[5rem]">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-5xl font-black mb-24 tracking-tighter text-center">Strategic <span class="text-emerald-500 italic">Flagships</span></h2>
+            <h2 class="text-5xl font-black mb-24 tracking-tighter text-center italic">Product <span class="text-emerald-500">Flagships</span></h2>
             
             <div class="space-y-48">
                 <!-- Case 1: Pandora Web3 -->
                 <div class="reveal grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" :class="selectedRole === 'tech' ? 'dim' : ''">
-                    <div class="space-y-8" :class="selectedRole === 'pm' ? 'focus-role p-8 rounded-3xl' : ''">
+                    <div class="space-y-8">
                         <span class="mono font-bold text-blue-600 text-xs uppercase tracking-widest">Web3 & Venture Capital</span>
-                        <h3 class="text-4xl font-extrabold text-slate-900 tracking-tighter">Pandora & IDG Blockchain</h3>
-                        <p class="text-xl text-slate-600 leading-relaxed italic">Managing high-impact crypto portfolios and scaling DeFi products.</p>
-                        <ul class="space-y-4 text-slate-500 text-sm">
-                            <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span><span>Managed <span :class="recruiterMode ? 'highlight-text' : ''">$40M USD AUM</span> Venture Fund.</span></li>
-                            <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span><span>Scaled DeFi products to <span :class="recruiterMode ? 'highlight-text' : ''">1M+ Global Users</span>.</span></li>
-                        </ul>
-                    </div>
-                    <div class="dark-glass p-10 rounded-[4rem] hacker-glow border-blue-500/30">
-                        <div class="grid grid-cols-2 gap-8 text-center">
-                            <div class="space-y-1"><p class="text-3xl font-black text-white">$40M</p><p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">AUM</p></div>
-                            <div class="space-y-1"><p class="text-3xl font-black text-blue-400">1M+</p><p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">USERS</p></div>
+                        <h3 class="text-4xl font-extrabold text-slate-900 tracking-tighter">Pandora & IDG Blockchain Fund</h3>
+                        <p class="text-xl text-slate-600 leading-relaxed italic">Managing high-impact blockchain portfolios and scaling DeFi ecosystems.</p>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 mt-1 font-bold">01</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 mb-1">Scaled to 1M+ Global Users</h4>
+                                    <p class="text-sm text-slate-500 leading-relaxed">Owned roadmap for core DeFi products, focusing on token utility and viral growth loops in Web3.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 mt-1 font-bold">02</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 mb-1">IDG Blockchain Fund ($40M AUM)</h4>
+                                    <p class="text-sm text-slate-500 leading-relaxed">Core member evaluating tokenomics and business models for global startups post-investment.</p>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="dark-glass p-10 rounded-[4rem] hacker-glow border-blue-500/20 text-center">
+                        <p class="text-5xl font-black text-white mb-2 tracking-tighter">$40,000,000</p>
+                        <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em]">Institutional Fund AUM</p>
                     </div>
                 </div>
 
                 <!-- Case 2: Odoo ERP -->
-                <div class="reveal grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" :class="selectedRole === 'pm' ? 'dim' : ''">
-                    <div class="lg:order-last space-y-8" :class="selectedRole === 'tech' ? 'focus-role p-8 rounded-3xl' : ''">
-                        <span class="mono font-bold text-emerald-600 text-xs uppercase tracking-widest">Enterprise Transformation</span>
-                        <h3 class="text-4xl font-extrabold text-slate-900 tracking-tighter">Viet An Digital Backbone</h3>
-                        <p class="text-xl text-slate-600 leading-relaxed italic">Architecting operational excellence for 200+ employee groups.</p>
+                <div class="reveal grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="lg:order-last space-y-8" :class="selectedRole === 'pm' ? 'dim' : ''">
+                        <span class="mono font-bold text-emerald-600 text-xs uppercase tracking-widest">Enterprise Digital Backbone</span>
+                        <h3 class="text-4xl font-extrabold text-slate-900 tracking-tighter">Odoo ERP Architecture</h3>
+                        <p class="text-xl text-slate-600 leading-relaxed italic">Redefining operation flow for 200+ employee industrial groups.</p>
                         <ul class="space-y-4 text-slate-500 text-sm">
-                            <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span><span>Standardized <span :class="recruiterMode ? 'highlight-text' : ''">20+ Key Processes</span>.</span></li>
-                            <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span><span>Implemented <span :class="recruiterMode ? 'highlight-text' : ''">9 Core Odoo Modules</span>.</span></li>
+                            <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span><span>Implemented <span :class="recruiterMode ? 'highlight-text' : ''">9 core modules</span> with 100% adoption.</span></li>
+                            <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span><span>Standardized <span :class="recruiterMode ? 'highlight-text' : ''">20+ manual processes</span> into automated ROI.</span></li>
                         </ul>
                     </div>
-                    <div class="bg-slate-900 p-10 rounded-[4rem] shadow-2xl relative group">
-                        <div class="absolute -top-4 -right-4 bg-emerald-500 text-white px-6 py-2 rounded-full font-black text-[10px]">+32% EFFICIENCY</div>
-                        <img src="https://static.figma.com/uploads/a4510b0ae063e1ae709281f30ef95f974299e6b5" class="rounded-[2.5rem] opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div class="bg-slate-900 p-4 rounded-[4rem] shadow-2xl relative">
+                        <div class="absolute -top-4 -right-4 bg-emerald-500 text-white px-6 py-2 rounded-full font-black text-xs shadow-xl">+32% Efficiency</div>
+                        <img src="https://static.figma.com/uploads/a4510b0ae063e1ae709281f30ef95f974299e6b5" class="rounded-[3.5rem] w-full opacity-90">
+                    </div>
+                </div>
+
+                <!-- Case 3: Simplamo SaaS -->
+                <div class="reveal grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <span class="mono font-bold text-purple-600 text-xs uppercase tracking-widest">B2B SaaS Growth</span>
+                        <h3 class="text-4xl font-extrabold text-slate-900 tracking-tighter">Simplamo SaaS Growth</h3>
+                        <p class="text-xl text-slate-600 leading-relaxed italic">Achieving 4.5x revenue growth through OKR-driven product strategy.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 text-center">
+                                <p class="text-3xl font-black text-slate-900">100+</p>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">SME Clients</p>
+                            </div>
+                            <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 text-center">
+                                <p class="text-3xl font-black text-purple-500">92%</p>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Retention</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-[4rem] border border-slate-100 shadow-2xl">
+                        <img src="https://static.figma.com/uploads/8bd1c51851ccc4de47cb1f9163dbf062d777a809" class="rounded-[3.5rem] w-full">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- THE VAULT (EXPANDED PROJECT GRID) -->
+    <!-- FULL CAREER TIMELINE (RE-ADDED) -->
+    <section id="experience" class="py-32 px-6 bg-[#f8fafc]">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-5xl font-black mb-24 tracking-tighter">Full Career <span class="text-emerald-500 italic">History</span></h2>
+            
+            <div class="space-y-32">
+                <!-- Viet An Group -->
+                <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16">
+                    <div class="md:col-span-4 border-l-4 border-emerald-500 pl-8">
+                        <span class="mono font-bold text-emerald-600 text-xs mb-2 block tracking-widest uppercase">Feb 2025 — Present</span>
+                        <h3 class="text-3xl font-black text-slate-900">Viet An Group</h3>
+                        <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Product Development Manager</p>
+                    </div>
+                    <div class="md:col-span-8 space-y-6">
+                        <p class="text-xl font-semibold text-slate-800 leading-tight">Led digital transformation for <span :class="recruiterMode ? 'highlight-text' : ''">200+ employees</span> by architecting Odoo ERP & CRM systems.</p>
+                        <ul class="text-sm text-slate-600 space-y-4 list-disc list-inside">
+                            <li>Managed end-to-end Odoo rollout (9 core modules) across Sales, Operations, Finance, and HR.</li>
+                            <li>Standardized 20+ key business processes and automated 35+ manual workflows, improving efficiency by <span :class="recruiterMode ? 'highlight-text' : ''">32%</span>.</li>
+                            <li>Reduced operational reporting time by <span :class="recruiterMode ? 'highlight-text' : ''">50%</span> via real-time data dashboards and centralized data.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Pandora Digital -->
+                <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16">
+                    <div class="md:col-span-4 border-l-4 border-blue-500 pl-8">
+                        <span class="mono font-bold text-blue-600 text-xs mb-2 block tracking-widest uppercase">Jan 2022 — Dec 2024</span>
+                        <h3 class="text-3xl font-black text-slate-900">Pandora Digital</h3>
+                        <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Product Manager & Investor</p>
+                    </div>
+                    <div class="md:col-span-8 space-y-6">
+                        <p class="text-xl font-semibold text-slate-800 leading-tight">Scaled DeFi products to <span :class="recruiterMode ? 'highlight-text' : ''">1M+ global users</span> and managed a $40M USD Fund.</p>
+                        <ul class="text-sm text-slate-600 space-y-4 list-disc list-inside">
+                            <li>Owned core DeFi product roadmap, bridging product, engineering, and growth teams to launch new features.</li>
+                            <li>Core member of IDG Blockchain Fund <span :class="recruiterMode ? 'highlight-text' : ''">($40M USD AUM)</span>: sourcing deals, evaluating tokenomics and business models.</li>
+                            <li>Represented IDG in Southern Vietnam, building deal flow from leading universities and startup ecosystems.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Simplamo -->
+                <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16">
+                    <div class="md:col-span-4 border-l-4 border-purple-500 pl-8">
+                        <span class="mono font-bold text-purple-600 text-xs mb-2 block tracking-widest uppercase">Aug 2018 — Dec 2022</span>
+                        <h3 class="text-3xl font-black text-slate-900">Simplamo</h3>
+                        <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Founding Product Manager</p>
+                    </div>
+                    <div class="md:col-span-8 space-y-6">
+                        <p class="text-xl font-semibold text-slate-800 leading-tight">Built and scaled a B2B SaaS platform for SMEs from 0 to 100+ customers.</p>
+                        <ul class="text-sm text-slate-600 space-y-4 list-disc list-inside">
+                            <li>Achieved <span :class="recruiterMode ? 'highlight-text' : ''">4.5x growth in 24 months</span> with an annual logo retention rate of 92%.</li>
+                            <li>Built and managed cross-functional team of 9, achieving ~90% on-time releases under Agile/Scrum.</li>
+                            <li>Pioneered simplified OKR/KPI frameworks for Vietnamese business leaders.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE VAULT (EXPANDED PROJECTS) -->
     <section id="projects" class="py-32 px-6 bg-slate-900 text-white rounded-[5rem] mx-4 relative overflow-hidden">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-5xl font-black mb-20 tracking-tighter italic text-center underline decoration-emerald-500/30">The <span class="text-emerald-500">Vault</span></h2>
+            <h2 class="text-5xl font-black mb-20 tracking-tighter italic underline decoration-emerald-500/30">The <span class="text-emerald-500">Vault</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1: Go24 -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 relative group">
+                <div class="card-hover dark-glass p-10 rounded-[3rem] border-white/5 relative group">
                     <div class="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                     <h3 class="text-xl font-bold mb-3 italic">Go24 Regional Hub</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Infrastructure for Regional Logistics. Banking & Geo-service API integrations.</p>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">High-volume microservices for regional logistics and fintech settlement.</p>
+                    <div class="flex gap-2 text-[8px] mono font-bold text-blue-500/50"><span>NESTJS</span> <span>MICROSERVICES</span></div>
                 </div>
                 <!-- Project 2: Foodhub -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 group">
-                    <div class="w-12 h-12 bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2.5"/></svg></div>
-                    <h3 class="text-xl font-bold mb-3 italic">Foodhub Marketplace</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Integrated GrabFood SDKs. Automated merchant systems for marketplace scale.</p>
+                <div class="card-hover dark-glass p-10 rounded-[3rem] border-white/5 group">
+                    <div class="w-12 h-12 bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <h3 class="text-xl font-bold mb-3 italic">Foodhub Delivery</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Marketplace automation with GrabFood SDKs and merchant onboarding systems.</p>
+                    <div class="flex gap-2 text-[8px] mono font-bold text-orange-500/50"><span>JAVA_SDK</span> <span>ECOMMERCE</span></div>
                 </div>
                 <!-- Project 3: SteveOS -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 group">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2.5"/></svg></div>
+                <div class="card-hover dark-glass p-10 rounded-[3rem] border-white/5 group">
+                    <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                     <h3 class="text-xl font-bold mb-3 italic">Kanban Terminal</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Hacker-themed productivity board for developers. Python-powered TUI.</p>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Personal hacker-themed TUI board for terminal productivity. Python powered.</p>
+                    <div class="flex gap-2 text-[8px] mono font-bold text-emerald-500/50"><span>PYTHON</span> <span>TUI</span></div>
                 </div>
-                <!-- Project 4: Paraformer AI -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 group">
-                    <div class="w-12 h-12 bg-pink-500/20 rounded-2xl flex items-center justify-center text-pink-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" stroke-width="2.5"/></svg></div>
-                    <h3 class="text-xl font-bold mb-3 italic">Paraformer AI</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Parallel transformer implementation for high-speed ASR (Speech Recognition).</p>
+                <!-- Project 4: Paraformer -->
+                <div class="card-hover dark-glass p-10 rounded-[3rem] border-white/5 group">
+                    <div class="w-12 h-12 bg-pink-500/20 rounded-2xl flex items-center justify-center text-pink-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <h3 class="text-xl font-bold mb-3 italic">AI ASR Detach</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">High-speed speech recognition model implementation with parallel transformers.</p>
                 </div>
                 <!-- Project 5: X-Bot -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 group">
-                    <div class="w-12 h-12 bg-indigo-500/20 rounded-2xl flex items-center justify-center text-indigo-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" stroke-width="2.5"/></svg></div>
+                <div class="card-hover dark-glass p-10 rounded-[3rem] border-white/5 group">
+                    <div class="w-12 h-12 bg-indigo-500/20 rounded-2xl flex items-center justify-center text-indigo-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                     <h3 class="text-xl font-bold mb-3 italic">X-Bot Automation</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Strategic automation scripts for X (Twitter) interactions and signal monitoring.</p>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Strategic signal monitoring and interaction automation for X platform.</p>
                 </div>
                 <!-- Project 6: ZKP Passport -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 group">
-                    <div class="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2.5"/></svg></div>
+                <div class="card-hover dark-glass p-10 rounded-[3rem] border-white/5 group">
+                    <div class="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                     <h3 class="text-xl font-bold mb-3 italic">Proof of Passport</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Web3 security using Zero-Knowledge Proofs for identity verification.</p>
-                </div>
-                <!-- Project 7: Pricing Engine -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 group">
-                    <div class="w-12 h-12 bg-yellow-500/20 rounded-2xl flex items-center justify-center text-yellow-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-width="2.5"/></svg></div>
-                    <h3 class="text-xl font-bold mb-3 italic">LLM Cost Watch</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Multi-provider pricing bot for AI API management (GPT-4/Claude/Gemini).</p>
-                </div>
-                <!-- Project 8: Green Studio -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 group">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-2xl flex items-center justify-center text-red-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2.5"/></svg></div>
-                    <h3 class="text-xl font-bold mb-3 italic">Green Studio</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Frontend builder for dynamic print layouts and digital assets.</p>
-                </div>
-                <!-- Project 9: Avalon -->
-                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 group">
-                    <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400 mb-8"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2.5"/></svg></div>
-                    <h3 class="text-xl font-bold mb-3 italic">Behavior Analytics</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Algorithmic behavioral scoring for social strategy environments.</p>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Web3 security utilizing Zero-Knowledge Proofs for identity verification.</p>
                 </div>
             </div>
         </div>
@@ -268,9 +364,9 @@
     <!-- Footer -->
     <footer class="py-40 px-6 text-center">
         <div class="max-w-4xl mx-auto reveal active">
-            <h2 class="text-6xl md:text-8xl font-[900] tracking-tighter mb-12">Let's scale <br/><span class="text-gradient italic">together.</span></h2>
+            <h2 class="text-6xl md:text-8xl font-[900] tracking-tighter mb-12 italic">Let's scale <br/><span class="text-gradient">together.</span></h2>
             <div class="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8">
-                <a href="mailto:dang.nguyentranhuu@gmail.com" class="bg-gray-900 text-white px-12 py-6 rounded-3xl font-black text-lg shadow-2xl hover:bg-emerald-600 transition-all active:scale-95">Send Message</a>
+                <a href="mailto:dang.nguyentranhuu@gmail.com" class="bg-gray-900 text-white px-12 py-6 rounded-3xl font-black text-lg shadow-2xl hover:bg-emerald-600 transition-all active:scale-95">Send Secure Email</a>
                 <a href="https://linkedin.com/in/steve-fi" target="_blank" class="text-slate-400 font-bold hover:text-slate-900 transition-colors uppercase tracking-[0.2em] text-sm underline decoration-emerald-500 underline-offset-8">LinkedIn Hub</a>
             </div>
             <p class="mt-32 text-[10px] font-black mono text-slate-300 uppercase tracking-[0.5em]">&copy; 2026 STEVE DANG &mdash; MISSION CRITICAL SYSTEMS</p>
