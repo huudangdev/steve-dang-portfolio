@@ -63,28 +63,41 @@
         /* Story Overlay */
         .story-guide {
             position: fixed;
-            bottom: 40px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 30px;
-            padding: 24px 40px;
-            width: 90%;
-            max-width: 600px;
+            border-radius: 20px;
+            padding: 16px 24px;
+            width: 95%;
+            max-width: 500px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(16, 185, 129, 0.1);
             animation: slide-up 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        @media (min-width: 768px) {
+            .story-guide {
+                bottom: 40px;
+                padding: 24px 40px;
+                border-radius: 30px;
+                width: 90%;
+            }
         }
         @keyframes slide-up { from { transform: translate(-50%, 100px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
         
         .story-focus {
-            box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.7) !important;
+            box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.85) !important;
             z-index: 100 !important;
             position: relative !important;
             background: white !important;
             transition: all 0.8s ease;
+        }
+        @media (max-width: 768px) {
+            .story-focus {
+                box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.9) !important;
+            }
         }
 
         /* Enhanced Hacker Glow */
@@ -116,10 +129,16 @@
         storyMode: false,
         storyStep: 0,
         storyContent: [
-            { title: 'The Genesis', text: 'Born from B2B SaaS scaling at Simplamo, achieving 4.5x revenue growth.', target: '#experience' },
-            { title: 'Web3 Frontier', text: 'Architecting Pandora Digital and managing $40M IDG Blockchain Fund.', target: '#featured-products' },
-            { title: 'Enterprise Backbone', text: 'Leading digital transformation for 200+ employees at Viet An Group.', target: '#experience' },
-            { title: 'The Vault', text: 'A decade of code, strategy, and mission-critical systems.', target: '#projects' }
+            { title: 'The Vision', text: 'Strategic Product Leader with 8+ years of experience scaling high-impact digital ecosystems.', target: 'header' },
+            { title: 'Simplamo Core', text: 'Building the foundation: Scaling B2B SaaS from 0 to 100+ SME customers.', target: '#experience' },
+            { title: 'OKR Mastery', text: 'Driving 4.5x revenue growth through strict OKR-driven product strategy.', target: '#featured-products' },
+            { title: 'Web3 Transition', text: 'Architecting Pandora Digital and managing $40M IDG Blockchain Fund.', target: '#featured-products' },
+            { title: 'Global DeFi', text: 'Scaling DeFi products to over 1,000,000 global users.', target: '#experience' },
+            { title: 'Enterprise Impact', text: 'Leading digital transformation for 200+ employees at Viet An Group.', target: '#experience' },
+            { title: 'Odoo Backbone', text: 'Implementing 9 core ERP modules, boosting efficiency by 32%.', target: '#featured-products' },
+            { title: 'Process Automation', text: 'Standardizing 20+ manual processes into automated, ROI-driven workflows.', target: '#experience' },
+            { title: 'The Project Vault', text: 'A decade of code, strategy, and mission-critical systems.', target: '#projects' },
+            { title: 'Future Scale', text: 'Ready to lead the next high-growth venture. Let\'s scale together.', target: 'footer' }
         ],
         floatingComments: [
             { id: 1, text: 'Amazing architecture!', author: 'DevLead', x: '10vw', y: '20vh', duration: '20s', delay: '0s' },
@@ -310,7 +329,7 @@
     </nav>
 
     <!-- Hero Section (CORRECTED TITLE) -->
-    <header class="pt-40 lg:pt-48 pb-32 px-6 relative">
+    <header id="header" class="pt-40 lg:pt-48 pb-32 px-6 relative">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <div class="lg:col-span-7 space-y-8">
                 <div class="inline-flex items-center space-x-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase border border-emerald-100">
@@ -318,7 +337,7 @@
                     <span>Scaling High-Impact Digital Ecosystems</span>
                 </div>
                 <h1 class="text-6xl md:text-[5.5rem] font-[900] text-slate-900 leading-[0.9] tracking-tighter">
-                    Venture & <br/><span class="text-gradient italic">Product Architect.</span>
+                    Strategic <br/><span class="text-gradient italic">Product Manager.</span>
                 </h1>
                 <p class="text-xl md:text-2xl text-slate-500 leading-relaxed max-w-2xl font-medium">
                     Leading <span :class="recruiterMode ? 'highlight-text' : ''">High-Scale Web3 Venture Building</span>, <span :class="recruiterMode ? 'highlight-text' : ''">Enterprise Digital Transformation</span>, and <span :class="recruiterMode ? 'highlight-text' : ''">High-Growth B2B SaaS Scaling</span>.
@@ -573,7 +592,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-40 px-6 text-center">
+    <footer id="footer" class="py-40 px-6 text-center">
         <div class="max-w-4xl mx-auto reveal active">
             <h2 class="text-6xl md:text-8xl font-[900] tracking-tighter mb-12">Let's scale <br/><span class="text-gradient italic">together.</span></h2>
             <div class="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-12">
