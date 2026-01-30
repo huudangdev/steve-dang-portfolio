@@ -92,9 +92,10 @@
             z-index: 100 !important;
             position: relative !important;
             background: white !important;
-            box-shadow: 0 0 0 20px white, 0 0 0 24px var(--accent), 0 40px 100px rgba(0,0,0,0.2) !important;
-            border-radius: 20px;
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: scale(1.03) translateY(-10px);
+            box-shadow: 0 50px 100px -20px rgba(16, 185, 129, 0.2), 0 30px 60px -30px rgba(0,0,0,0.3) !important;
+            border-radius: 24px;
+            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         /* Floating Terminal Utility */
@@ -120,16 +121,28 @@
         .page-reveal {
             position: fixed;
             inset: 0;
-            background: rgba(255, 255, 255, 0);
-            backdrop-filter: blur(0px);
+            background: #000;
+            opacity: 0;
             z-index: 3000;
             pointer-events: none;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: opacity 0.8s ease;
         }
         .reveal-active {
-            background: rgba(16, 185, 129, 0.05);
-            backdrop-filter: blur(10px);
+            opacity: 0.4;
         }
+
+        /* Spotlight Overlay */
+        .spotlight-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 90;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            backdrop-filter: blur(4px);
+        }
+        .spotlight-active { opacity: 1; }
 
         /* Enhanced Hacker Glow */
         .hacker-glow::after {
@@ -188,16 +201,16 @@
         terminalMinimized: false,
         isSwiping: false,
         storyContent: [
-            { title: 'The Vision', text: 'Strategic Product Leader with 8+ years experience scaling high-impact digital ecosystems.', target: '#header' },
-            { title: 'Simplamo Core', text: 'Building the foundation: Scaling B2B SaaS from 0 to 100+ SME customers.', target: '#story-simplamo' },
-            { title: 'OKR Mastery', text: 'Driving 4.5x revenue growth through strict OKR-driven product strategy.', target: '#story-simplamo' },
-            { title: 'Web3 Transition', text: 'Architecting Pandora Digital and managing $40M IDG Blockchain Fund.', target: '#story-pandora' },
-            { title: 'Global DeFi', text: 'Scaling DeFi products to over 1,000,000 global users.', target: '#story-pandora' },
-            { title: 'Enterprise Impact', text: 'Leading digital transformation for 200+ employees at Viet An Group.', target: '#experience' },
-            { title: 'Odoo Backbone', text: 'Implementing 9 core ERP modules, boosting efficiency by 32%.', target: '#story-odoo' },
-            { title: 'Process Automation', text: 'Standardizing 20+ manual processes into automated workflows.', target: '#experience' },
-            { title: 'The Project Vault', text: 'A decade of code, strategy, and mission-critical systems.', target: '#projects' },
-            { title: 'Future Scale', text: 'Ready to lead the next high-growth venture. Let\'s scale together.', target: '#footer' }
+            { title: 'The Architect', text: 'Strategic Product Leader dedicated to building high-scale digital ecosystems.', target: '#header' },
+            { title: 'Market Impact', text: 'Achieving measurable results: 32% efficiency boost and 4.5x growth multiplier.', target: '#story-metrics' },
+            { title: 'SaaS Excellence', text: 'At Simplamo, I scaled B2B solutions from zero to 100+ SME clients.', target: '#story-simplamo' },
+            { title: 'Growth Strategy', text: 'Implementing OKR-driven roadmaps that secured 92% customer retention.', target: '#story-simplamo' },
+            { title: 'Web3 Innovation', text: 'Led DeFi product roadmaps at Pandora, scaling to 1M+ global users.', target: '#story-pandora' },
+            { title: 'VC Insights', text: 'Managed $40M AUM at IDG Blockchain Fund, evaluating global startups.', target: '#story-pandora' },
+            { title: 'Enterprise Scale', text: 'Architected Odoo ERP for Viet An Group, automating 35+ complex workflows.', target: '#story-odoo' },
+            { title: 'Professional Journey', text: 'A career built on bridging product, engineering, and business growth.', target: '#experience' },
+            { title: 'The Archive', text: 'Exploring 10 years of mission-critical systems and experimental tech.', target: '#projects' },
+            { title: 'Next Frontier', text: 'Ready to scale your vision. Let\'s build the next big thing together.', target: '#footer' }
         ],
         floatingComments: [
             { id: 1, text: 'Amazing architecture!', author: 'DevLead', x: '10vw', y: '20vh', duration: '20s', delay: '0s' },
@@ -322,14 +335,20 @@
             setTimeout(() => { this.isSwiping = false; }, 1000);
         },
         navigateStory() {
+            // Remove previous focus
+            document.querySelectorAll('.story-focus').forEach(el => el.classList.remove('story-focus'));
+            
             const target = document.querySelector(this.storyContent[this.storyStep].target);
             if(target) {
-                const yOffset = -window.innerHeight / 4; 
+                const yOffset = -window.innerHeight / 3; 
                 const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                
                 window.scrollTo({top: y, behavior: 'smooth'});
                 
-                target.classList.add('story-focus');
-                setTimeout(() => target.classList.remove('story-focus'), 3500);
+                // Add focus with small delay for smoothness
+                setTimeout(() => {
+                    target.classList.add('story-focus');
+                }, 400);
             }
         },
         initProgressBar() {
@@ -348,6 +367,7 @@
     <div id="cursor-outline"></div>
     <canvas id="confetti-canvas"></canvas>
     <div class="page-reveal" :class="isSwiping ? 'reveal-active' : ''"></div>
+    <div class="spotlight-overlay" :class="storyMode ? 'spotlight-active' : ''"></div>
 
     <!-- Floating Ecosystem -->
     <template x-for="comment in floatingComments" :key="comment.id">
