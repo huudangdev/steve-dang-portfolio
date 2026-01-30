@@ -93,12 +93,50 @@
             z-index: 100 !important;
             position: relative !important;
             background: white !important;
-            transition: all 0.8s ease;
+            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: scale(1.02);
         }
         @media (max-width: 768px) {
             .story-focus {
                 box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.9) !important;
+                transform: scale(1.01);
             }
+        }
+
+        /* Floating Terminal Utility */
+        .terminal-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 400px;
+            z-index: 500;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(0);
+        }
+        .terminal-minimized {
+            height: 45px;
+            width: 180px;
+            transform: translateY(0);
+            overflow: hidden;
+        }
+        .terminal-minimized .terminal-scroll, .terminal-minimized .mt-8 { display: none; }
+
+        /* Cinematic Page Transition */
+        .page-reveal {
+            position: fixed;
+            inset: 0;
+            background: var(--accent);
+            z-index: 3000;
+            transform: translateY(100%);
+        }
+        .reveal-active {
+            animation: reveal-swipe 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        @keyframes reveal-swipe {
+            0% { transform: translateY(100%); }
+            50% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
         }
 
         /* Enhanced Hacker Glow */
@@ -155,8 +193,10 @@
         toastMsg: '',
         storyMode: false,
         storyStep: 0,
+        terminalMinimized: false,
+        isSwiping: false,
         storyContent: [
-            { title: 'The Vision', text: 'Strategic Product Leader with 8+ years of experience scaling high-impact digital ecosystems.', target: 'header' },
+            { title: 'The Vision', text: 'Strategic Product Leader with 8+ years experience scaling high-impact digital ecosystems.', target: '#header' },
             { title: 'Simplamo Core', text: 'Building the foundation: Scaling B2B SaaS from 0 to 100+ SME customers.', target: '#experience' },
             { title: 'OKR Mastery', text: 'Driving 4.5x revenue growth through strict OKR-driven product strategy.', target: '#featured-products' },
             { title: 'Web3 Transition', text: 'Architecting Pandora Digital and managing $40M IDG Blockchain Fund.', target: '#featured-products' },
@@ -165,7 +205,7 @@
             { title: 'Odoo Backbone', text: 'Implementing 9 core ERP modules, boosting efficiency by 32%.', target: '#featured-products' },
             { title: 'Process Automation', text: 'Standardizing 20+ manual processes into automated, ROI-driven workflows.', target: '#experience' },
             { title: 'The Project Vault', text: 'A decade of code, strategy, and mission-critical systems.', target: '#projects' },
-            { title: 'Future Scale', text: 'Ready to lead the next high-growth venture. Let\'s scale together.', target: 'footer' }
+            { title: 'Future Scale', text: 'Ready to lead the next high-growth venture. Let\'s scale together.', target: '#footer' }
         ],
         floatingComments: [
             { id: 1, text: 'Amazing architecture!', author: 'DevLead', x: '10vw', y: '20vh', duration: '20s', delay: '0s' },
@@ -266,27 +306,39 @@
             });
         },
         startStory() {
-            this.storyMode = true;
-            this.storyStep = 0;
-            this.navigateStory();
-            this.terminalLines.push({ type: 'out', text: '>>> STORY MODE: ACTIVATED. Use the navigator below.' });
+            this.isSwiping = true;
+            setTimeout(() => {
+                this.storyMode = true;
+                this.storyStep = 0;
+                this.navigateStory();
+                this.terminalMinimized = true;
+                this.terminalLines.push({ type: 'out', text: '>>> STORY MODE: ACTIVATED. Terminal minimized to corner.' });
+            }, 600);
+            setTimeout(() => { this.isSwiping = false; }, 1200);
         },
         nextStory() {
             if(this.storyStep < this.storyContent.length - 1) {
                 this.storyStep++;
                 this.navigateStory();
             } else {
-                this.storyMode = false;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                this.terminalLines.push({ type: 'out', text: '>>> STORY MODE: COMPLETED. Thank you for exploring.' });
+                this.isSwiping = true;
+                setTimeout(() => {
+                    this.storyMode = false;
+                    this.terminalMinimized = false;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 600);
+                setTimeout(() => { this.isSwiping = false; }, 1200);
             }
         },
         navigateStory() {
             const target = document.querySelector(this.storyContent[this.storyStep].target);
             if(target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const yOffset = -100; 
+                const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
+                
                 target.classList.add('story-focus');
-                setTimeout(() => target.classList.remove('story-focus'), 3000);
+                setTimeout(() => target.classList.remove('story-focus'), 4000);
             }
         },
         initProgressBar() {
@@ -304,14 +356,7 @@
     <div id="cursor-dot"></div>
     <div id="cursor-outline"></div>
     <canvas id="confetti-canvas"></canvas>
-
-    <!-- Toast Notification -->
-    <div x-show="showToast" x-cloak class="toast-notification" x-transition>
-        <div class="flex items-center space-x-3">
-            <div class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></div>
-            <span x-text="toastMsg"></span>
-        </div>
-    </div>
+    <div class="page-reveal" :class="isSwiping ? 'reveal-active' : ''"></div>
 
     <!-- Floating Ecosystem -->
     <template x-for="comment in floatingComments" :key="comment.id">
@@ -420,8 +465,24 @@
                 </div>
             </div>
             
-            <div class="lg:col-span-5">
-                <div class="dark-glass p-8 rounded-[3rem] border border-white/10 shadow-2xl hacker-glow relative">
+            <div class="lg:col-span-5 relative">
+                <div :class="terminalMinimized ? 'terminal-float terminal-minimized' : ''" 
+                     class="dark-glass p-8 rounded-[3rem] border border-white/10 shadow-2xl hacker-glow relative group transition-all duration-500">
+                    
+                    <div class="flex items-center justify-between mb-4 lg:hidden" :class="terminalMinimized ? 'flex' : 'hidden'">
+                         <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Steve.OS v12</span>
+                         <button @click="terminalMinimized = false" class="text-white p-1 hover:text-emerald-500 transition">
+                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" stroke-width="2"/></svg>
+                         </button>
+                    </div>
+
+                    <div class="absolute top-6 right-8 hidden lg:block">
+                        <button @click="terminalMinimized = !terminalMinimized" class="text-gray-600 hover:text-emerald-500 transition">
+                            <svg x-show="!terminalMinimized" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <svg x-show="terminalMinimized" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+
                     <div class="terminal-scroll overflow-y-auto px-2 space-y-4 mono text-[13px]" x-ref="termBody">
                         <template x-for="line in terminalLines">
                             <div>
