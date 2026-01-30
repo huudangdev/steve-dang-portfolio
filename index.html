@@ -92,10 +92,17 @@
             z-index: 100 !important;
             position: relative !important;
             background: white !important;
-            transform: scale(1.03) translateY(-10px);
-            box-shadow: 0 50px 100px -20px rgba(16, 185, 129, 0.2), 0 30px 60px -30px rgba(0,0,0,0.3) !important;
-            border-radius: 24px;
-            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+            /* Create a wider/taller look using negative spread shadow + padding-like glow */
+            box-shadow: 0 0 0 20px white, 0 0 0 22px rgba(16, 185, 129, 0.1), 0 40px 100px rgba(0,0,0,0.15) !important;
+            border-radius: 30px;
+            transform: scale(1.02);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        @media (min-width: 1024px) {
+            .story-focus {
+                box-shadow: 0 0 0 40px white, 0 0 0 42px rgba(16, 185, 129, 0.1), 0 60px 150px rgba(0,0,0,0.2) !important;
+                transform: scale(1.04);
+            }
         }
 
         /* Floating Terminal Utility */
@@ -201,16 +208,16 @@
         terminalMinimized: false,
         isSwiping: false,
         storyContent: [
-            { title: 'The Architect', text: 'Strategic Product Leader dedicated to building high-scale digital ecosystems.', target: '#header' },
-            { title: 'Market Impact', text: 'Achieving measurable results: 32% efficiency boost and 4.5x growth multiplier.', target: '#story-metrics' },
-            { title: 'SaaS Excellence', text: 'At Simplamo, I scaled B2B solutions from zero to 100+ SME clients.', target: '#story-simplamo' },
-            { title: 'Growth Strategy', text: 'Implementing OKR-driven roadmaps that secured 92% customer retention.', target: '#story-simplamo' },
-            { title: 'Web3 Innovation', text: 'Led DeFi product roadmaps at Pandora, scaling to 1M+ global users.', target: '#story-pandora' },
-            { title: 'VC Insights', text: 'Managed $40M AUM at IDG Blockchain Fund, evaluating global startups.', target: '#story-pandora' },
-            { title: 'Enterprise Scale', text: 'Architected Odoo ERP for Viet An Group, automating 35+ complex workflows.', target: '#story-odoo' },
-            { title: 'Professional Journey', text: 'A career built on bridging product, engineering, and business growth.', target: '#experience' },
-            { title: 'The Archive', text: 'Exploring 10 years of mission-critical systems and experimental tech.', target: '#projects' },
-            { title: 'Next Frontier', text: 'Ready to scale your vision. Let\'s build the next big thing together.', target: '#footer' }
+            { title: 'The Architect', text: 'Strategic Product Leader dedicated to building high-scale digital ecosystems.', target: '#header', log: '>>> IDENTITY_SCAN: Steve Nguyen | Strategic Product Manager. Visionary mindset engaged.' },
+            { title: 'Market Impact', text: 'Achieving measurable results: 32% efficiency boost and 4.5x growth multiplier.', target: '#story-metrics', log: '>>> ANALYZING_KPIs: Growth Multiplier 4.5x | AUM $40M managed. High-impact detected.' },
+            { title: 'SaaS Excellence', text: 'At Simplamo, I scaled B2B solutions from zero to 100+ SME clients.', target: '#story-simplamo', log: '>>> SAAS_MODULE: Simplamo Scaling [Success] | 0 -> 100+ SME Clients. Market validation complete.' },
+            { title: 'Growth Strategy', text: 'Implementing OKR-driven roadmaps that secured 92% customer retention.', target: '#story-simplamo', log: '>>> STRATEGY_ENGINE: OKR framework active. Retention set to 92%. Stability confirmed.' },
+            { title: 'Web3 Innovation', text: 'Led DeFi product roadmaps at Pandora, scaling to 1M+ global users.', target: '#story-pandora', log: '>>> WEB3_SCAN: Pandora DeFi ecosystem. Scaling to 1M+ users. Decentralized growth active.' },
+            { title: 'VC Insights', text: 'Managed $40M AUM at IDG Blockchain Fund, evaluating global startups.', target: '#story-pandora', log: '>>> FUND_MANAGEMENT: IDG Blockchain Fund | $40M AUM evaluation. Portfolio optimization active.' },
+            { title: 'Enterprise Scale', text: 'Architected Odoo ERP for Viet An Group, automating 35+ complex workflows.', target: '#story-odoo', log: '>>> ERP_ARCHITECT: Viet An Group | 9 core modules deployed. Efficiency boost +32%.' },
+            { title: 'Professional Journey', text: 'A career built on bridging product, engineering, and business growth.', target: '#experience', log: '>>> CAREER_TIMELINE: 8+ years of scaling history. Bridging Product & Growth.' },
+            { title: 'The Archive', text: 'Exploring 10 years of mission-critical systems and experimental tech.', target: '#projects', log: '>>> VAULT_ACCESS: Unlocking Project Archive. 10 years of code & strategy discovered.' },
+            { title: 'Next Frontier', text: 'Ready to scale your vision. Let\'s build the next big thing together.', target: '#footer', log: '>>> MISSION_SUMMARY: Strategic Alignment Ready. Ready for the next high-growth venture.' }
         ],
         floatingComments: [
             { id: 1, text: 'Amazing architecture!', author: 'DevLead', x: '10vw', y: '20vh', duration: '20s', delay: '0s' },
@@ -338,13 +345,18 @@
             // Remove previous focus
             document.querySelectorAll('.story-focus').forEach(el => el.classList.remove('story-focus'));
             
-            const target = document.querySelector(this.storyContent[this.storyStep].target);
+            const step = this.storyContent[this.storyStep];
+            const target = document.querySelector(step.target);
             if(target) {
                 const yOffset = -window.innerHeight / 3; 
                 const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
                 
                 window.scrollTo({top: y, behavior: 'smooth'});
                 
+                // Add terminal log
+                this.terminalLines.push({ type: 'sys', text: step.log });
+                this.$nextTick(() => { this.$refs.termBody.scrollTop = this.$refs.termBody.scrollHeight; });
+
                 // Add focus with small delay for smoothness
                 setTimeout(() => {
                     target.classList.add('story-focus');
