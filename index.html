@@ -3,66 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steve Dang | Strategic Product Architect & Odoo Expert</title>
+    <title>Steve Dang | Strategic Product Architect & Growth Leader</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #10b981; --accent-glow: rgba(16, 185, 129, 0.4); }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        @media (min-width: 1024px) { body { cursor: none; } }
+        :root { --accent: #10b981; --accent-glow: rgba(16, 185, 129, 0.3); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; cursor: none; }
         .mono { font-family: 'Fira Code', monospace; }
         .glass { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.3); }
-        .dark-glass { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .dark-glass { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .text-gradient { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hacker-glow { box-shadow: 0 0 60px var(--accent-glow); }
-        
-        #cursor-dot { width: 8px; height: 8px; background: var(--accent); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; display: none; }
-        #cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1); display: none; }
-        @media (min-width: 1024px) { #cursor-dot, #cursor-outline { display: block; } }
-        
+        #cursor-dot { width: 8px; height: 8px; background: var(--accent); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; }
+        #cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1); }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        
-        .terminal-scroll { height: 350px; scrollbar-width: none; }
-        @media (min-width: 1024px) { .terminal-scroll { height: 420px; } }
-        .terminal-scroll::-webkit-scrollbar { display: none; }
-        
-        .cmd-btn { transition: all 0.3s; border: 1px solid rgba(16, 185, 129, 0.2); }
-        .cmd-btn:hover { background: var(--accent); color: white; border-color: var(--accent); transform: translateY(-2px); }
-
-        .scanline { width: 100%; height: 2px; background: rgba(16, 185, 129, 0.1); position: absolute; top: 0; left: 0; pointer-events: none; animation: scan 4s linear infinite; }
-        @keyframes scan { from { top: 0; } to { top: 100%; } }
-        
-        .dot-matrix { background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 24px 24px; }
+        .card-hover { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.1); }
         .highlight-text { background: #fef08a; color: #166534; font-weight: 700; padding: 0 4px; border-radius: 4px; }
+        .terminal-scroll { height: 420px; scrollbar-width: none; }
+        .terminal-scroll::-webkit-scrollbar { display: none; }
+        .dot-matrix { background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 24px 24px; }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 <body class="bg-[#fcfcfc] text-slate-900 dot-matrix" 
       x-data="{ 
+        mobileMenu: false,
         recruiterMode: false, 
         showToast: false, 
         toastMsg: '',
         terminalLines: [
-            { type: 'sys', text: '>>> STEVE_OS v4.0 SECURE BOOT COMPLETE.' },
-            { type: 'sys', text: '>>> TARGET: High-Scale Digital Transformation.' },
-            { type: 'out', text: 'Hello! I specialize in architecting Odoo ecosystems and scaling products.' }
+            { type: 'sys', text: '>>> STEVE_OS v5.0.1 AUTHENTICATED.' },
+            { type: 'sys', text: '>>> SESSION: Product Architect / Growth Strategy' },
+            { type: 'out', text: 'Type help or use buttons to explore my career files.' }
         ],
         commandInput: '',
         processCommand(input) {
             let cmd = (input || this.commandInput).toLowerCase().trim();
             if(!cmd) return;
             this.terminalLines.push({ type: 'cmd', text: cmd });
-            if(cmd === 'odoo') {
-                this.terminalLines.push({ type: 'out', text: '• End-to-End ERP Rollout for 200+ employees.' });
-                this.terminalLines.push({ type: 'out', text: '• Result: 32% increase in group-wide efficiency.' });
-            } else if(cmd === 'impact') {
-                this.terminalLines.push({ type: 'out', text: '• 1M+ Users scaled in DeFi.' });
-                this.terminalLines.push({ type: 'out', text: '• 4.5x growth in SaaS revenue.' });
+            if(cmd === 'story') {
+                this.terminalLines.push({ type: 'out', text: '>>> MISSION: Delivering high-scale business impact.' });
+                this.terminalLines.push({ type: 'out', text: 'Simplamo (SaaS) -> Pandora (Web3/DeFi) -> Viet An (Enterprise ERP)' });
+            } else if(cmd === 'metrics') {
+                this.terminalLines.push({ type: 'out', text: '--- PERFORMANCE INDICATORS ---' });
+                this.terminalLines.push({ type: 'out', text: '• 32% efficiency boost | 1M+ global users | $40M Fund managed' });
             } else if(cmd === 'hire') {
-                this.terminalLines.push({ type: 'out', text: '>>> Redirecting to direct contact...' });
-                setTimeout(() => { window.location.href = 'mailto:dang.nguyentranhuu@gmail.com'; }, 800);
-            } else if(cmd === 'clear') { this.terminalLines = []; }
+                this.terminalLines.push({ type: 'out', text: '>>> ACCESSING CONTACT PROTOCOLS...' });
+                setTimeout(() => { window.location.href = 'mailto:dang.nguyentranhuu@gmail.com'; }, 1000);
+            } else if(cmd === 'clear') {
+                this.terminalLines = [];
+            } else if(cmd === 'help') {
+                this.terminalLines.push({ type: 'out', text: 'Available: story, metrics, hire, clear' });
+            } else {
+                this.terminalLines.push({ type: 'out', text: `Command ${cmd} not found. Use help.` });
+            }
             this.commandInput = '';
             this.$nextTick(() => { this.$refs.termBody.scrollTop = this.$refs.termBody.scrollHeight; });
         }
@@ -73,192 +69,245 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-2 cursor-pointer group" @click="window.scrollTo(0,0)">
-                <div class="w-8 h-8 md:w-10 md:h-10 bg-emerald-500 rounded-lg md:rounded-xl flex items-center justify-center text-white font-black text-lg md:text-xl group-hover:rotate-12 transition-all shadow-lg">S</div>
-                <span class="font-extrabold text-lg md:text-xl tracking-tighter uppercase">STEVE<span class="text-emerald-500">DANG</span></span>
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer group" @click="window.scrollTo(0,0)">
+                <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white font-black text-xl group-hover:rotate-12 transition-all shadow-lg">S</div>
+                <span class="font-extrabold text-xl tracking-tighter uppercase">STEVE<span class="text-emerald-500">DANG</span></span>
             </div>
-            <div class="hidden lg:flex items-center space-x-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
-                <a href="#experience" class="hover:text-emerald-600 transition">History</a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-10 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
+                <a href="#experience" class="hover:text-emerald-600 transition">Experience</a>
                 <a href="#projects" class="hover:text-emerald-600 transition">Projects</a>
-                <button @click="recruiterMode = !recruiterMode" class="flex items-center space-x-2 bg-slate-100 p-1 rounded-full border border-slate-200">
-                    <div class="w-8 h-4 rounded-full transition-colors relative shadow-inner" :class="recruiterMode ? 'bg-emerald-500' : 'bg-slate-300'">
-                        <div class="absolute top-0.5 left-0.5 bg-white w-3 h-3 rounded-full transition-transform" :style="recruiterMode ? 'transform: translateX(16px)' : ''"></div>
-                    </div>
-                    <span class="mr-2 text-[9px] text-slate-500 font-bold">RECRUITER</span>
-                </button>
-                <a href="mailto:dang.nguyentranhuu@gmail.com" class="bg-gray-900 text-white px-6 py-2 rounded-full hover:bg-emerald-600 transition text-[10px]">Hire Me</a>
+                <div class="flex items-center space-x-3 bg-slate-100 p-1.5 rounded-full border border-slate-200">
+                    <button @click="recruiterMode = !recruiterMode" class="w-10 h-5 rounded-full transition-colors relative shadow-inner" :class="recruiterMode ? 'bg-emerald-500' : 'bg-slate-300'">
+                        <div class="absolute top-1 left-1 bg-white w-3 h-3 rounded-full transition-transform" :style="recruiterMode ? 'transform: translateX(20px)' : ''"></div>
+                    </button>
+                    <span class="mr-2 text-[9px] text-slate-500 uppercase font-bold">Insights</span>
+                </div>
+                <a href="mailto:dang.nguyentranhuu@gmail.com" class="bg-gray-900 text-white px-8 py-3 rounded-full hover:bg-emerald-600 transition shadow-xl">Contact</a>
             </div>
-            <!-- Mobile Menu Placeholder -->
-            <div class="lg:hidden text-emerald-500 font-black text-xs mono">HIRE_ME_PLS</div>
+
+            <!-- Mobile Menu Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 text-slate-900 focus:outline-none">
+                <svg x-show="!mobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg x-show="mobileMenu" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-cloak @click.away="mobileMenu = false" class="lg:hidden bg-white border-b border-gray-100 py-8 px-6 space-y-6 shadow-2xl animate__animated animate__fadeInDown">
+            <a @click="mobileMenu = false" href="#experience" class="block text-xl font-bold text-slate-900">Experience</a>
+            <a @click="mobileMenu = false" href="#projects" class="block text-xl font-bold text-slate-900">Projects</a>
+            <a href="mailto:dang.nguyentranhuu@gmail.com" class="block w-full text-center bg-emerald-500 text-white py-4 rounded-2xl font-black uppercase tracking-widest">Hire Steve</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="pt-24 md:pt-32 pb-16 px-4 md:px-6 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-center">
-            <div class="lg:col-span-6 space-y-6 md:space-y-8">
-                <div class="inline-flex items-center space-x-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-[9px] md:text-[10px] font-black tracking-widest uppercase border border-emerald-100">
+    <header class="pt-40 lg:pt-48 pb-32 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-7 space-y-8">
+                <div class="inline-flex items-center space-x-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase border border-emerald-100">
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Executive Transformation</span>
+                    <span>Scaling Digital Ecosystems</span>
                 </div>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-[900] text-slate-900 leading-[0.95] tracking-tighter">
+                <h1 class="text-6xl md:text-8xl font-[900] text-slate-900 leading-[0.9] tracking-tighter">
                     Product <br/><span class="text-gradient">Architect.</span>
                 </h1>
-                <p class="text-lg md:text-xl lg:text-2xl text-slate-500 leading-relaxed max-w-2xl font-medium">
-                    Driving <span :class="recruiterMode ? 'highlight-text' : ''">Enterprise Growth</span> through Odoo ERP, DeFi scaling, and automation systems.
+                <p class="text-xl md:text-2xl text-slate-500 leading-relaxed max-w-2xl font-medium">
+                    I lead <span :class="recruiterMode ? 'highlight-text' : ''">High-Impact Digital Transformation</span> for enterprises. Architecting Odoo ERP systems and managing DeFi products for <span :class="recruiterMode ? 'highlight-text' : ''">1M+ global users</span>.
                 </p>
-                <div class="pt-4 flex flex-col sm:flex-row gap-4">
-                    <a href="Steve_Dang_CV.pdf" target="_blank"
-                            class="group bg-gray-900 text-white px-10 py-5 rounded-3xl font-black text-lg flex items-center space-x-4 hover:bg-emerald-600 transition-all shadow-2xl shadow-emerald-200/20">
-                        <span>Official CV (PDF)</span>
-                        <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="pt-4">
+                    <a href="Steve_Dang_CV.pdf" target="_blank" class="inline-flex bg-gray-900 text-white px-10 py-5 rounded-3xl font-black text-lg shadow-2xl hover:bg-emerald-600 transition-all items-center space-x-4">
+                        <span>Get Full Resume</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
                 </div>
             </div>
             
-            <div class="lg:col-span-6">
-                <div class="dark-glass p-6 md:p-8 rounded-[2.5rem] md:rounded-[3.5rem] border border-white/10 shadow-2xl hacker-glow relative overflow-hidden group">
-                    <div class="scanline"></div>
+            <div class="lg:col-span-5">
+                <div class="dark-glass p-8 rounded-[3rem] border border-white/10 shadow-2xl hacker-glow relative">
                     <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
                         <div class="flex space-x-2">
-                            <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-                            <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <span class="text-[9px] mono text-emerald-500 font-bold uppercase tracking-widest opacity-70">recruiter_mode.sh</span>
+                        <span class="text-[10px] mono text-emerald-500 font-bold uppercase tracking-widest">interactive_discovery.exe</span>
                     </div>
-                    
-                    <div class="terminal-scroll overflow-y-auto px-1 space-y-4 mono text-[12px] md:text-[14px]" x-ref="termBody">
+                    <div class="terminal-scroll overflow-y-auto px-2 space-y-4 mono text-[13px]" x-ref="termBody">
                         <template x-for="line in terminalLines">
                             <div>
-                                <p x-show="line.type === 'sys'" class="text-gray-500 font-bold" x-text="line.text"></p>
-                                <p x-show="line.type === 'cmd'" class="text-emerald-500 font-black">> <span x-text="line.text" class="text-white uppercase"></span></p>
-                                <p x-show="line.type === 'out'" class="text-slate-300 pl-4 border-l border-emerald-500/20 ml-1 leading-relaxed" x-text="line.text"></p>
+                                <p x-show="line.type === 'sys'" class="text-gray-600 italic" x-text="line.text"></p>
+                                <p x-show="line.type === 'cmd'" class="text-emerald-500 font-bold">> <span x-text="line.text" class="text-emerald-400"></span></p>
+                                <p x-show="line.type === 'out'" class="text-slate-200 pl-4 border-l-2 border-emerald-500/20 ml-1 leading-relaxed" x-text="line.text"></p>
                             </div>
                         </template>
                         <div class="flex items-center space-x-2">
-                            <span class="text-emerald-500 font-black animate-pulse">></span>
-                            <input type="text" x-model="commandInput" @keydown.enter="processCommand()" class="bg-transparent border-none outline-none text-emerald-400 w-full focus:ring-0 p-0" placeholder="Ask me anything...">
+                            <span class="text-emerald-500 font-bold">></span>
+                            <input type="text" x-model="commandInput" @keydown.enter="processCommand()" class="bg-transparent border-none outline-none text-emerald-400 w-full focus:ring-0 p-0" placeholder="Ask me something...">
                         </div>
                     </div>
-
-                    <div class="mt-6 pt-6 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-                        <button @click="processCommand('odoo')" class="cmd-btn p-3 rounded-xl text-[9px] font-black text-emerald-500 bg-emerald-500/5 uppercase">Odoo</button>
-                        <button @click="processCommand('impact')" class="cmd-btn p-3 rounded-xl text-[9px] font-black text-emerald-500 bg-emerald-500/5 uppercase">Impact</button>
-                        <button @click="processCommand('clear')" class="cmd-btn p-3 rounded-xl text-[9px] font-black text-slate-400 bg-white/5 uppercase">Clear</button>
-                        <button @click="processCommand('hire')" class="cmd-btn p-3 rounded-xl text-[9px] font-black text-white bg-emerald-600 uppercase">Hire</button>
+                    <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-2">
+                        <button @click="processCommand('story')" class="bg-emerald-500/10 text-emerald-500 px-4 py-2 rounded-xl text-[10px] font-black hover:bg-emerald-500 hover:text-white transition">STORY</button>
+                        <button @click="processCommand('metrics')" class="bg-blue-500/10 text-blue-500 px-4 py-2 rounded-xl text-[10px] font-black hover:bg-blue-500 hover:text-white transition">METRICS</button>
+                        <button @click="processCommand('hire')" class="bg-white/10 text-white px-4 py-2 rounded-xl text-[10px] font-black hover:bg-white hover:text-black transition">HIRE ME</button>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Odoo Highlight -->
-    <section class="py-16 md:py-24 px-4 md:px-6 relative reveal active">
-        <div class="max-w-7xl mx-auto">
-            <div class="bg-white rounded-[3rem] md:rounded-[4rem] border border-gray-100 p-8 md:p-20 shadow-sm relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
-                    <div>
-                        <span class="mono font-bold text-emerald-600 text-[10px] mb-4 block uppercase tracking-widest">Core Expertise</span>
-                        <h2 class="text-4xl md:text-5xl font-[900] text-slate-900 mb-6 tracking-tighter leading-tight">Odoo Transformation <br/><span class="text-emerald-500">Engine.</span></h2>
-                        <p class="text-lg text-slate-600 leading-relaxed mb-8">Redefining enterprise scale. I lead end-to-end Odoo ecosystems that harmonize complex business units into one seamless digital stream.</p>
-                        <div class="flex space-x-8">
-                            <div><p class="text-2xl md:text-3xl font-black">9</p><p class="text-[9px] font-black uppercase text-slate-400 tracking-widest">Modules</p></div>
-                            <div><p class="text-2xl md:text-3xl font-black text-emerald-500">100%</p><p class="text-[9px] font-black uppercase text-slate-400 tracking-widest">Adoption</p></div>
+    <!-- Professional Experience -->
+    <section id="experience" class="py-32 px-6 bg-white rounded-t-[5rem]">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-5xl font-black mb-24 tracking-tighter">Experience <span class="text-emerald-500 italic">History</span></h2>
+            
+            <div class="space-y-40">
+                <!-- Viet An Group -->
+                <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+                    <div class="lg:col-span-4">
+                        <div class="sticky top-32">
+                            <span class="mono font-bold text-emerald-600 text-xs mb-4 block tracking-widest uppercase">Feb 2025 — Jan 2026</span>
+                            <h3 class="text-4xl font-black text-slate-900 mb-2">Viet An Group</h3>
+                            <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Product Development Manager</p>
                         </div>
                     </div>
-                    <div class="bg-slate-50 p-8 rounded-[2.5rem] space-y-6 border border-gray-50">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold shrink-0 text-sm">1</div>
-                            <p class="text-sm text-slate-600 leading-snug"><span class="font-bold text-slate-900">End-to-End Architecture:</span> From discovery to customization and final UAT.</p>
+                    <div class="lg:col-span-8 space-y-10">
+                        <p class="text-2xl font-semibold text-slate-800 leading-tight italic">Led digital transformation for <span :class="recruiterMode ? 'highlight-text' : ''">200+ employees</span> by architecting Odoo ERP systems.</p>
+                        <ul class="space-y-6 text-slate-600">
+                            <li>Managed end-to-end Odoo rollout (9 modules) achieving <span :class="recruiterMode ? 'highlight-text' : ''">100% user adoption</span> across Sales, Finance, and HR.</li>
+                            <li>Standardized 20+ key business processes and automated 35+ workflows, boosting efficiency by <span :class="recruiterMode ? 'highlight-text' : ''">32%</span>.</li>
+                            <li>Reduced operational reporting time by <span :class="recruiterMode ? 'highlight-text' : ''">50%</span> via real-time data dashboards.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Pandora Digital -->
+                <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+                    <div class="lg:col-span-4">
+                        <div class="sticky top-32">
+                            <span class="mono font-bold text-blue-600 text-xs mb-4 block tracking-widest uppercase">Jan 2022 — Dec 2024</span>
+                            <h3 class="text-4xl font-black text-slate-900 mb-2">Pandora Digital</h3>
+                            <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Product Manager & Investor</p>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold shrink-0 text-sm">2</div>
-                            <p class="text-sm text-slate-600 leading-snug"><span class="font-bold text-slate-900">Business Standardization:</span> Converting manual lag into automated ROI.</p>
+                    </div>
+                    <div class="lg:col-span-8 space-y-10">
+                        <p class="text-2xl font-semibold text-slate-800 leading-tight italic">Scaled DeFi products to <span :class="recruiterMode ? 'highlight-text' : ''">1M+ global users</span> and managed a $40M USD Fund.</p>
+                        <ul class="space-y-6 text-slate-600">
+                            <li>Owned core DeFi product roadmap, bridging product, engineering, and growth teams.</li>
+                            <li>Core member of IDG Blockchain Fund <span :class="recruiterMode ? 'highlight-text' : ''">($40M AUM)</span>: evaluated tokenomics and business models globally.</li>
+                            <li>Represented IDG in Southern Vietnam, building deal flow from universities and startup ecosystems.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Simplamo -->
+                <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+                    <div class="lg:col-span-4">
+                        <div class="sticky top-32">
+                            <span class="mono font-bold text-purple-600 text-xs mb-4 block tracking-widest uppercase">Aug 2018 — Dec 2022</span>
+                            <h3 class="text-4xl font-black text-slate-900 mb-2">Simplamo</h3>
+                            <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Founding Product Manager</p>
                         </div>
+                    </div>
+                    <div class="lg:col-span-8 space-y-10">
+                        <p class="text-2xl font-semibold text-slate-800 leading-tight italic">Grew customer base from 0 to <span :class="recruiterMode ? 'highlight-text' : ''">100+ SME customers</span>.</p>
+                        <ul class="space-y-6 text-slate-600">
+                            <li>Achieved <span :class="recruiterMode ? 'highlight-text' : ''">4.5x growth in 24 months</span> with a 92% retention rate.</li>
+                            <li>Managed cross-functional team of 9 engineers/designers ensuring ~90% on-time releases.</li>
+                            <li>Pioneered simplified OKR/KPI frameworks for SME leadership.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience -->
-    <section id="experience" class="py-24 px-4 md:px-6 bg-white">
-        <div class="max-w-6xl mx-auto space-y-32">
-            <h2 class="text-4xl md:text-5xl font-black tracking-tighter">History</h2>
-            <!-- Career Items (Simplified for Mobile) -->
-            <div class="space-y-24">
-                <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-8">
-                    <div class="md:col-span-4 border-l-4 border-emerald-500 pl-6 md:pl-8">
-                        <span class="mono font-bold text-emerald-600 text-xs mb-2 block tracking-widest uppercase">2025 - 2026</span>
-                        <h3 class="text-2xl md:text-3xl font-black">Viet An Group</h3>
-                        <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Product Dev Manager</p>
-                    </div>
-                    <div class="md:col-span-8 text-slate-600 space-y-4">
-                        <p class="text-lg font-semibold text-slate-800 leading-tight">Led digital transformation for 200+ employees.</p>
-                        <ul class="text-sm space-y-3 list-disc list-inside">
-                            <li>Managed end-to-end Odoo rollout with 100% adoption.</li>
-                            <li>Automated 35+ workflows, increasing efficiency by 32%.</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Simplified Simplamo -->
-                <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-8">
-                    <div class="md:col-span-4 border-l-4 border-purple-500 pl-6 md:pl-8">
-                        <span class="mono font-bold text-purple-600 text-xs mb-2 block tracking-widest uppercase">2018 - 2022</span>
-                        <h3 class="text-2xl md:text-3xl font-black">Simplamo</h3>
-                        <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Founding PM</p>
-                    </div>
-                    <div class="md:col-span-8 text-slate-600 space-y-4">
-                        <p class="text-lg font-semibold text-slate-800 leading-tight">Built B2B SaaS from 0 to 100+ customers.</p>
-                        <ul class="text-sm space-y-3 list-disc list-inside">
-                            <li>Achieved 4.5x growth in 24 months.</li>
-                            <li>Pioneered OKR/KPI framework simplification for SMEs.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects (NOW RE-SHOWN) -->
-    <section id="projects" class="py-24 px-4 md:px-6 bg-slate-900 text-white rounded-[3rem] md:rounded-[5rem] mx-2 md:mx-4 overflow-hidden">
+    <!-- Detailed Project Block -->
+    <section id="projects" class="py-32 px-6 bg-slate-900 text-white rounded-[5rem] mx-4 relative overflow-hidden">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-black mb-16 tracking-tighter italic underline decoration-emerald-500/30">The Vault</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <!-- Go24 -->
-                <div class="card-hover dark-glass p-8 rounded-[2.5rem] border-white/5 relative group">
-                    <div class="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 mb-6"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                    <h3 class="text-xl font-bold mb-3">Go24 Hub</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Microservices architecture for Regional Logistics & Fintech scaling.</p>
-                    <div class="flex gap-2 text-[8px] mono font-bold text-blue-500/50"><span>NESTJS</span> <span>LOGISTICS</span></div>
+            <h2 class="text-5xl font-black mb-20 tracking-tighter italic underline decoration-emerald-500/30 text-center lg:text-left">The <span class="text-emerald-500">Vault</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Project 1: Go24 -->
+                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 relative group">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span class="mono text-[10px] font-bold text-blue-500/50">SYSTEM_CORE</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-blue-400 transition-colors">Go24 Logistics Hub</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Architected microservices for high-volume logistics. Handled Banking, Geo-location, and Delivery Service integrations for regional enterprise partners.</p>
+                    <div class="flex flex-wrap gap-2 text-[9px] mono font-bold text-blue-500/50"><span>NESTJS</span> <span>MICROSERVICES</span> <span>FINTECH</span></div>
                 </div>
-                <!-- Kanban -->
-                <div class="card-hover dark-glass p-8 rounded-[2.5rem] border-white/5 relative group">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 mb-6"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                    <h3 class="text-xl font-bold mb-3">Kanban TUI</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Personal TUI task system for high-productivity development cycles.</p>
-                    <div class="flex gap-2 text-[8px] mono font-bold text-emerald-500/50"><span>PYTHON</span> <span>UX</span></div>
+
+                <!-- Project 2: Foodhub -->
+                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 relative group">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-400"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span class="mono text-[10px] font-bold text-orange-500/50">MARKETPLACE</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-orange-400 transition-colors">Foodhub Delivery</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Integrated GrabFood & ShopeePay SDKs to scale a delivery marketplace. Automated merchant onboarding and transaction flows.</p>
+                    <div class="flex flex-wrap gap-2 text-[9px] mono font-bold text-orange-500/50"><span>JAVA_SDK</span> <span>ECOMMERCE</span> <span>APIS</span></div>
                 </div>
-                <!-- Foodhub -->
-                <div class="card-hover dark-glass p-8 rounded-[2.5rem] border-white/5 relative group">
-                    <div class="w-12 h-12 bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-400 mb-6"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                    <h3 class="text-xl font-bold mb-3">Marketplace Engine</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">SDK integration management for GrabFood/Shopee marketplace scaling.</p>
-                    <div class="flex gap-2 text-[8px] mono font-bold text-orange-500/50"><span>SDK</span> <span>ECOMMERCE</span></div>
+
+                <!-- Project 3: Kanban TUI -->
+                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 relative group">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-gray-500/20 rounded-2xl flex items-center justify-center text-gray-400"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span class="mono text-[10px] font-bold text-gray-500/50">DEV_TOOL</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-emerald-400 transition-colors">SteveOS Kanban</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Hacker-themed TUI board for terminal productivity. Smart task detection, emoji priorities, and local JSON persistence engine.</p>
+                    <div class="flex flex-wrap gap-2 text-[9px] mono font-bold text-emerald-500/50"><span>PYTHON</span> <span>CLI</span> <span>UX_DESIGN</span></div>
+                </div>
+
+                <!-- Project 4: paraformer-detach -->
+                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 relative group">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-pink-500/20 rounded-2xl flex items-center justify-center text-pink-400"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span class="mono text-[10px] font-bold text-pink-500/50">AI_ASR</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-pink-400 transition-colors">Paraformer Detach</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Optimized ASR (Speech Recognition) models. Implementation of parallel transformers for non-autoregressive end-to-end recognition.</p>
+                    <div class="flex flex-wrap gap-2 text-[9px] mono font-bold text-pink-500/50"><span>PYTORCH</span> <span>AI</span> <span>SIGNAL_PROCESSING</span></div>
+                </div>
+
+                <!-- Project 5: Pricing Engine -->
+                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 relative group">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span class="mono text-[10px] font-bold text-cyan-500/50">FINTECH_AI</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition-colors">LLM Pricing Fetcher</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Automated multi-provider pricing engine for AI models. Real-time cost calculation for GPT-4, Claude, and Gemini API ecosystems.</p>
+                    <div class="flex flex-wrap gap-2 text-[9px] mono font-bold text-cyan-500/50"><span>AIOHTTP</span> <span>API_STRATEGY</span></div>
+                </div>
+
+                <!-- Project 6: Avalon Analytics -->
+                <div class="card-hover dark-glass p-10 rounded-[3.5rem] border-white/5 relative group">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span class="mono text-[10px] font-bold text-purple-500/50">LOGIC_ENGINE</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-purple-400 transition-colors">Avalon Scoring</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Behavioral scoring engine for deduction games. Algorithms to calculate deception accuracy, influence, and leadership metrics.</p>
+                    <div class="flex flex-wrap gap-2 text-[9px] mono font-bold text-purple-500/50"><span>NUMPY</span> <span>GAME_THEORY</span></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-24 px-4 text-center">
+    <footer class="py-40 px-6 text-center">
         <div class="max-w-4xl mx-auto reveal active">
-            <h2 class="text-5xl md:text-7xl font-[900] tracking-tighter mb-8 italic">Let's scale <span class="text-gradient">together.</span></h2>
-            <a href="mailto:dang.nguyentranhuu@gmail.com" class="bg-gray-900 text-white px-10 py-5 rounded-3xl font-black text-lg shadow-2xl hover:bg-emerald-600 transition-all">Send Message</a>
-            <p class="mt-20 text-[9px] font-black mono text-slate-300 uppercase tracking-[0.5em]">&copy; 2026 STEVE DANG &mdash; MISSION CRITICAL</p>
+            <h2 class="text-6xl md:text-8xl font-[900] tracking-tighter mb-12 italic">Let's build <br/><span class="text-gradient">high impact.</span></h2>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8">
+                <a href="mailto:dang.nguyentranhuu@gmail.com" class="bg-gray-900 text-white px-12 py-6 rounded-3xl font-black text-lg shadow-2xl hover:bg-emerald-600 transition-all active:scale-95">Send Secure Email</a>
+                <a href="https://linkedin.com/in/steve-fi" target="_blank" class="text-slate-400 font-bold hover:text-slate-900 transition-colors uppercase tracking-[0.2em] text-sm underline decoration-emerald-500 underline-offset-8">LinkedIn Hub</a>
+            </div>
+            <p class="mt-32 text-[10px] font-black mono text-slate-300 uppercase tracking-[0.5em]">&copy; 2026 STEVE DANG &mdash; MISSION CRITICAL SYSTEMS</p>
         </div>
     </footer>
 
@@ -266,8 +315,10 @@
         const dot = document.getElementById('cursor-dot');
         const outline = document.getElementById('cursor-outline');
         window.addEventListener('mousemove', (e) => {
-            dot.style.left = `${e.clientX}px`; dot.style.top = `${e.clientY}px`;
-            outline.animate({ left: `${e.clientX - 20}px`, top: `${e.clientY - 20}px` }, { duration: 500, fill: "forwards" });
+            if (window.innerWidth >= 1024) {
+                dot.style.left = `${e.clientX}px`; dot.style.top = `${e.clientY}px`;
+                outline.animate({ left: `${e.clientX - 20}px`, top: `${e.clientY - 20}px` }, { duration: 500, fill: "forwards" });
+            }
         });
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
