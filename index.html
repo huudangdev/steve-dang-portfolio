@@ -92,28 +92,27 @@
             z-index: 100 !important;
             position: relative !important;
             background: white !important;
-            outline: 4px solid var(--accent);
-            outline-offset: 10px;
+            box-shadow: 0 0 0 20px white, 0 0 0 24px var(--accent), 0 40px 100px rgba(0,0,0,0.2) !important;
             border-radius: 20px;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         /* Floating Terminal Utility */
+        .terminal-container {
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
         .terminal-float {
             position: fixed !important;
-            bottom: 20px !important;
-            right: 20px !important;
+            bottom: 30px !important;
+            right: 30px !important;
             width: 350px !important;
-            height: 450px !important;
             z-index: 2000 !important;
             margin: 0 !important;
-            animation: slide-in-up 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        @keyframes slide-in-up { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
         .terminal-minimized {
             height: 50px !important;
-            width: 200px !important;
+            width: 220px !important;
+            overflow: hidden;
         }
         .terminal-minimized .terminal-scroll, .terminal-minimized .mt-8 { display: none; }
 
@@ -194,7 +193,7 @@
             { title: 'The Vision', text: 'Strategic Product Leader with 8+ years experience scaling high-impact digital ecosystems.', target: '#header' },
             { title: 'Simplamo Core', text: 'Building the foundation: Scaling B2B SaaS from 0 to 100+ SME customers.', target: '#story-simplamo' },
             { title: 'OKR Mastery', text: 'Driving 4.5x revenue growth through strict OKR-driven product strategy.', target: '#story-simplamo' },
-            { title: 'Web3 Transition', text: 'Architecting Pandora Digital và quản lý quỹ IDG Blockchain.', target: '#story-pandora' },
+            { title: 'Web3 Transition', text: 'Architecting Pandora Digital and managing $40M IDG Blockchain Fund.', target: '#story-pandora' },
             { title: 'Global DeFi', text: 'Scaling DeFi products to over 1,000,000 global users.', target: '#story-pandora' },
             { title: 'Enterprise Impact', text: 'Leading digital transformation for 200+ employees at Viet An Group.', target: '#experience' },
             { title: 'Odoo Backbone', text: 'Implementing 9 core ERP modules, boosting efficiency by 32%.', target: '#story-odoo' },
@@ -226,18 +225,18 @@
             }
 
             // Keyword triggers
-            if(cmd.includes('tuyệt vời') || cmd.includes('awesome') || cmd.includes('wow')) {
+            if(cmd.includes('awesome') || cmd.includes('wow') || cmd.includes('great')) {
                 this.triggerConfetti();
-                this.terminalLines.push({ type: 'out', text: '>>> SYSTEM: Cảm ơn bạn! Niềm tin của bạn là động lực để tôi tối ưu hoá mọi sản phẩm.' });
-                this.terminalLines.push({ type: 'out', text: '>>> Hãy để lại lời nhắn bằng lệnh \'message\' nhé!' });
+                this.terminalLines.push({ type: 'out', text: '>>> SYSTEM: Thank you! Your trust drives my optimization.' });
+                this.terminalLines.push({ type: 'out', text: '>>> Use \'message\' to leave a testimonial!' });
                 this.triggerToast('YOU ARE AWESOME!');
-            } else if(cmd.includes('jd') || cmd.includes('tuyển dụng') || cmd.includes('job')) {
-                this.terminalLines.push({ type: 'out', text: '>>> ANALYZING OPPORTUNITY: Đang phân tích cơ hội phát triển...' });
-                this.terminalLines.push({ type: 'out', text: '>>> Tôi rất sẵn lòng thảo luận về các bài toán hóc búa. Hãy gửi JD qua email hoặc LinkedIn cho tôi nhé!' });
+            } else if(cmd.includes('jd') || cmd.includes('hiring') || cmd.includes('job')) {
+                this.terminalLines.push({ type: 'out', text: '>>> ANALYZING OPPORTUNITY: Evaluating growth potential...' });
+                this.terminalLines.push({ type: 'out', text: '>>> I am ready for complex challenges. Send the JD to my Email or LinkedIn.' });
                 this.triggerFocus('#footer');
             } else if(cmd === 'story') {
                 this.startStory();
-            } else if(cmd === 'hire' || cmd.includes('liên hệ') || cmd.includes('contact')) {
+            } else if(cmd === 'hire' || cmd.includes('contact')) {
                 this.terminalLines.push({ type: 'out', text: '>>> INITIALIZING FAST TRACK: Opening direct line to Steve Nguyen...' });
                 setTimeout(() => { window.location.href = 'mailto:dang.nguyentranhuu@gmail.com'; }, 1500);
             } else if(cmd === 'cv' || cmd.includes('resume')) {
@@ -245,12 +244,12 @@
                 setTimeout(() => { window.open('Steve_Nguyen_CV.pdf', '_blank'); }, 1000);
             } else if(cmd === 'message') {
                 this.messageFlow = true;
-                this.terminalLines.push({ type: 'out', text: '>>> ENTERING COMMS MODULE: Tên của bạn là gì?' });
+                this.terminalLines.push({ type: 'out', text: '>>> ENTERING COMMS MODULE: What is your name?' });
             } else if(cmd === 'clear') { 
                 this.terminalLines = []; 
             } else {
                 this.terminalLines.push({ type: 'out', text: 'Error: Command \'' + cmd + '\' not recognized.' });
-                this.terminalLines.push({ type: 'out', text: 'Gợi ý: Thử gõ \'Tuyệt vời\', \'JD\', \'CV\', hoặc \'Story\'.' });
+                this.terminalLines.push({ type: 'out', text: 'Hint: Try \'story\', \'jd\', \'cv\', or \'message\'.' });
             }
             this.commandInput = '';
             this.$nextTick(() => { this.$refs.termBody.scrollTop = this.$refs.termBody.scrollHeight; });
@@ -461,44 +460,45 @@
             </div>
             
             <div class="lg:col-span-5 relative">
-                <!-- Terminal Placeholder to maintain space if needed -->
-                <div class="hidden lg:block h-[400px]"></div>
+                <!-- Global Terminal Container -->
+                <div :class="{ 
+                        'terminal-float': storyMode || terminalMinimized, 
+                        'terminal-minimized': terminalMinimized,
+                        'relative': !storyMode && !terminalMinimized 
+                     }" 
+                     class="dark-glass p-8 rounded-[3rem] border border-white/10 shadow-2xl hacker-glow z-[500] group transition-all duration-700 ease-in-out">
+                    
+                    <div class="flex items-center justify-between mb-4">
+                         <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Steve.OS v12</span>
+                         <div class="flex items-center space-x-2">
+                             <button @click="terminalMinimized = !terminalMinimized" class="text-gray-600 hover:text-emerald-500 transition">
+                                <svg x-show="!terminalMinimized" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2"/></svg>
+                                <svg x-show="terminalMinimized" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7" stroke-width="2"/></svg>
+                             </button>
+                         </div>
+                    </div>
+
+                    <div class="terminal-scroll overflow-y-auto px-2 space-y-4 mono text-[13px]" :class="terminalMinimized ? 'hidden' : 'block'" x-ref="termBody" style="height: 300px;">
+                        <template x-for="line in terminalLines">
+                            <div>
+                                <p x-show="line.type === 'sys'" class="text-gray-600 italic" x-text="line.text"></p>
+                                <p x-show="line.type === 'cmd'" class="text-emerald-500 font-bold">> <span x-text="line.text" class="text-emerald-400 uppercase"></span></p>
+                                <p x-show="line.type === 'out'" class="text-slate-200 pl-4 border-l-2 border-emerald-500/20 ml-1 leading-relaxed" x-text="line.text"></p>
+                            </div>
+                        </template>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-emerald-500 font-bold">></span>
+                            <input type="text" x-model="commandInput" @keydown.enter="processCommand()" class="bg-transparent border-none outline-none text-emerald-400 w-full focus:ring-0 p-0" placeholder="Commands: story, message, jd...">
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-white/5 grid grid-cols-2 gap-2" :class="terminalMinimized ? 'hidden' : 'grid'">
+                        <button @click="processCommand('story')" class="bg-emerald-500/10 text-emerald-500 p-3 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-500 transition">Story</button>
+                        <button @click="processCommand('message')" class="bg-white/10 text-white p-3 rounded-xl text-[10px] font-black uppercase hover:bg-white transition">Message</button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
-
-    <!-- Global Terminal -->
-    <div :class="terminalMinimized ? 'terminal-float terminal-minimized' : (storyMode ? 'terminal-float' : 'absolute top-[350px] right-[10%] lg:right-[5%] w-[350px] lg:w-[450px]')" 
-         class="dark-glass p-8 rounded-[3rem] border border-white/10 shadow-2xl hacker-glow z-[500] group transition-all duration-700 ease-in-out">
-        
-        <div class="flex items-center justify-between mb-4">
-             <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Steve.OS v12</span>
-             <div class="flex items-center space-x-2">
-                 <button @click="terminalMinimized = !terminalMinimized" class="text-gray-600 hover:text-emerald-500 transition">
-                    <svg x-show="!terminalMinimized" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2"/></svg>
-                    <svg x-show="terminalMinimized" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7" stroke-width="2"/></svg>
-                 </button>
-             </div>
-        </div>
-
-        <div class="terminal-scroll overflow-y-auto px-2 space-y-4 mono text-[13px]" :class="terminalMinimized ? 'hidden' : 'block'" x-ref="termBody" style="height: 300px;">
-            <template x-for="line in terminalLines">
-                <div>
-                    <p x-show="line.type === 'sys'" class="text-gray-600 italic" x-text="line.text"></p>
-                    <p x-show="line.type === 'cmd'" class="text-emerald-500 font-bold">> <span x-text="line.text" class="text-emerald-400 uppercase"></span></p>
-                    <p x-show="line.type === 'out'" class="text-slate-200 pl-4 border-l-2 border-emerald-500/20 ml-1 leading-relaxed" x-text="line.text"></p>
-                </div>
-            </template>
-            <div class="flex items-center space-x-2">
-                <span class="text-emerald-500 font-bold">></span>
-                <input type="text" x-model="commandInput" @keydown.enter="processCommand()" class="bg-transparent border-none outline-none text-emerald-400 w-full focus:ring-0 p-0" placeholder="Lệnh: story, message, jd...">
-            </div>
-        </div>
-        <div class="mt-8 pt-6 border-t border-white/5 grid grid-cols-2 gap-2" :class="terminalMinimized ? 'hidden' : 'grid'">
-            <button @click="processCommand('story')" class="bg-emerald-500/10 text-emerald-500 p-3 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-500 transition">Hành trình</button>
-            <button @click="processCommand('message')" class="bg-white/10 text-white p-3 rounded-xl text-[10px] font-black uppercase hover:bg-white transition">Lời nhắn</button>
-        </div>
-    </div>
 
     <!-- IMPACT METRICS -->
     <section class="py-24 px-6 relative reveal active">
