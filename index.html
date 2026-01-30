@@ -6,6 +6,7 @@
     <title>Steve Nguyen | Strategic Product Architect & Growth Leader</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #10b981; --accent-glow: rgba(16, 185, 129, 0.3); }
@@ -117,6 +118,32 @@
             50% { opacity: 0.3; }
             100% { opacity: 0.1; }
         }
+
+        /* Confetti Canvas */
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 2000;
+        }
+
+        /* Toast UI */
+        .toast-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--accent);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: slide-in-right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        @keyframes slide-in-right { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
 </head>
 <body class="bg-[#fcfcfc] text-slate-900 dot-matrix" 
@@ -163,22 +190,56 @@
                 return;
             }
 
-            if(cmd === 'story') {
+            // Keyword triggers
+            if(cmd.includes('tuyệt vời') || cmd.includes('awesome') || cmd.includes('wow')) {
+                this.triggerConfetti();
+                this.terminalLines.push({ type: 'out', text: '>>> SYSTEM: Cảm ơn bạn! Niềm tin của bạn là động lực để tôi tối ưu hoá mọi sản phẩm.' });
+                this.terminalLines.push({ type: 'out', text: '>>> Hãy để lại lời nhắn bằng lệnh \'message\' nhé!' });
+                this.triggerToast('YOU ARE AWESOME!');
+            } else if(cmd.includes('jd') || cmd.includes('tuyển dụng') || cmd.includes('job')) {
+                this.terminalLines.push({ type: 'out', text: '>>> ANALYZING OPPORTUNITY: Đang phân tích cơ hội phát triển...' });
+                this.terminalLines.push({ type: 'out', text: '>>> Tôi rất sẵn lòng thảo luận về các bài toán hóc búa. Hãy gửi JD qua email hoặc LinkedIn cho tôi nhé!' });
+                this.triggerFocus('#footer');
+            } else if(cmd === 'story') {
                 this.startStory();
-            } else if(cmd === 'hire') {
+            } else if(cmd === 'hire' || cmd.includes('liên hệ') || cmd.includes('contact')) {
                 this.terminalLines.push({ type: 'out', text: '>>> INITIALIZING FAST TRACK: Opening direct line to Steve Nguyen...' });
-                this.terminalLines.push({ type: 'out', text: 'Status: Negotiating for impact. Redirecting to mail server...' });
                 setTimeout(() => { window.location.href = 'mailto:dang.nguyentranhuu@gmail.com'; }, 1500);
+            } else if(cmd === 'cv' || cmd.includes('resume')) {
+                this.terminalLines.push({ type: 'out', text: '>>> ACCESSING ARCHIVES: Fetching Steve_Nguyen_CV.pdf...' });
+                setTimeout(() => { window.open('Steve_Nguyen_CV.pdf', '_blank'); }, 1000);
             } else if(cmd === 'message') {
                 this.messageFlow = true;
-                this.terminalLines.push({ type: 'out', text: '>>> ENTERING COMMS MODULE: What is your name?' });
+                this.terminalLines.push({ type: 'out', text: '>>> ENTERING COMMS MODULE: Tên của bạn là gì?' });
             } else if(cmd === 'clear') { 
                 this.terminalLines = []; 
             } else {
-                this.terminalLines.push({ type: 'out', text: 'Error: Command \'' + cmd + '\' not found. Try \'story\', \'message\', or \'hire\'.' });
+                this.terminalLines.push({ type: 'out', text: 'Error: Command \'' + cmd + '\' not recognized.' });
+                this.terminalLines.push({ type: 'out', text: 'Gợi ý: Thử gõ \'Tuyệt vời\', \'JD\', \'CV\', hoặc \'Story\'.' });
             }
             this.commandInput = '';
             this.$nextTick(() => { this.$refs.termBody.scrollTop = this.$refs.termBody.scrollHeight; });
+        },
+        triggerConfetti() {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#10b981', '#3b82f6', '#f59e0b']
+            });
+        },
+        triggerToast(msg) {
+            this.toastMsg = msg;
+            this.showToast = true;
+            setTimeout(() => { this.showToast = false; }, 3000);
+        },
+        triggerFocus(selector) {
+            const el = document.querySelector(selector);
+            if(el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.classList.add('story-focus');
+                setTimeout(() => el.classList.remove('story-focus'), 3000);
+            }
         },
         handleMessageFlow(input) {
             if(!this.tempMessage.name) {
@@ -242,6 +303,15 @@
     <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
     <div id="cursor-dot"></div>
     <div id="cursor-outline"></div>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Toast Notification -->
+    <div x-show="showToast" x-cloak class="toast-notification" x-transition>
+        <div class="flex items-center space-x-3">
+            <div class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></div>
+            <span x-text="toastMsg"></span>
+        </div>
+    </div>
 
     <!-- Floating Ecosystem -->
     <template x-for="comment in floatingComments" :key="comment.id">
